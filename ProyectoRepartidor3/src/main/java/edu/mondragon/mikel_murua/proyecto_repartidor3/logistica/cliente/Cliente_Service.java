@@ -1,4 +1,4 @@
-package edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto;
+package edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.cliente;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,11 +7,11 @@ import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_codigo.DaoSer
 
 @Service
 @Transactional
-public class PuntoReparto_Service implements DaoServices<PuntoReparto_Pojo>{
+public class Cliente_Service implements DaoServices<Cliente_Pojo>{
 
-	public PuntoReparto_Repository puntos;
+	public Cliente_Repository puntos;
 
-	public PuntoReparto_Service(PuntoReparto_Repository puntos) {
+	public Cliente_Service(Cliente_Repository puntos) {
 		this.puntos = puntos;
 	}
 
@@ -22,16 +22,16 @@ public class PuntoReparto_Service implements DaoServices<PuntoReparto_Pojo>{
 	}
 
 	@Override
-	public PuntoReparto_Pojo buscarPorID(Long id) {
+	public Cliente_Pojo buscarPorID(Long id) {
 		return null;
 	}
 
 	@Override
-	public void registrarEnDatabase(PuntoReparto_Pojo objeto) {
+	public void registrarEnDatabase(Cliente_Pojo objeto) {
 	}
 
 	@Override
-	public void actualizar(PuntoReparto_Pojo objeto) {
+	public void actualizar(Cliente_Pojo objeto) {
 	}
 
 	@Override

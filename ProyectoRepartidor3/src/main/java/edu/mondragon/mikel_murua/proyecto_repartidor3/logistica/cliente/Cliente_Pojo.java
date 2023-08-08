@@ -1,11 +1,8 @@
-package edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto;
+package edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.cliente;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,18 +13,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedido_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblacion_Pojo;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Pojo;
 
 
 
 @Entity
 @Table(name="puntoReparto")
-public class PuntoReparto_Pojo {
+public class Cliente_Pojo {
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -91,13 +86,13 @@ public class PuntoReparto_Pojo {
 //////////////////////////////////////////////////    
     
 
-    public PuntoReparto_Pojo() {
+    public Cliente_Pojo() {
     	this.lista_pedidos=new HashSet<>();
 	}
 
 
 
-public PuntoReparto_Pojo(Long id, String nombre_cliente, String apellidos_cliente, String tlf1_cliente,
+public Cliente_Pojo(Long id, String nombre_cliente, String apellidos_cliente, String tlf1_cliente,
 		String tlf2_cliente, String tlf3_cliente, String direccion, String dni, String color_puntero,
 		double coordenadasLatitud, double coordenadasLongitud, Poblacion_Pojo poblacion, UserAccount_Pojo user,
 		Set<Pedido_Pojo> lista_pedidos) {

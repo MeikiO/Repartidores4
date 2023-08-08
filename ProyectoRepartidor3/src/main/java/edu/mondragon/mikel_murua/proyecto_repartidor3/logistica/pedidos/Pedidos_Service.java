@@ -3,7 +3,6 @@ package edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblacion_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_codigo.DaoServices;
 
 @Service

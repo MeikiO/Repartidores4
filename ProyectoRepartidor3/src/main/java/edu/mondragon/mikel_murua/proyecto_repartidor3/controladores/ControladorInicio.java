@@ -1,61 +1,39 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.controladores;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.ModelAndView;
 
-import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Pojo;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Repository;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Service;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos.Pedido_Pojo;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.cliente.Cliente_Pojo;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.cliente.Cliente_Repository;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblacion_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.poblacion.Poblacion_Repository;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Pojo;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Repository;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_coordenadas.ConvertirDireccionACoordenadas;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_coordenadas.Coordenadas;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.MyUserDetailService;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.Roles;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Pojo;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad.UserAccount_Repository;
 
 
 @Controller
 public class ControladorInicio {
 
-	 private final PuntoReparto_Repository puntoRepartoRepository;
+	 private final Cliente_Repository puntoRepartoRepository;
 	 private final UserAccount_Repository userAccountRepository;
 	 private final Poblacion_Repository poblacionRepository;
 	 private final PasswordEncoder passwordEncoder;
 	
 	 
-	public ControladorInicio(PuntoReparto_Repository puntoRepartoRepository,
+	public ControladorInicio(Cliente_Repository puntoRepartoRepository,
 			UserAccount_Repository userAccountRepository, Poblacion_Repository poblacionRepository,
 			PasswordEncoder passwordEncoder) {
 		super();
@@ -66,36 +44,10 @@ public class ControladorInicio {
 	}
 
 
-	@GetMapping({"/indexPrueba"})
-    public String redirigirALaPaginaDeInicio() {
-    	
-    	Object usuarioLogeado = SecurityContextHolder. getContext(). getAuthentication(). getPrincipal();
-    	
-    	
-    	Collection<? extends GrantedAuthority> roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-    	
-    	/*
-    	 Explicacion principal:
-    	 	+ Funciones
-    	 	-> https://stackoverflow.com/questions/31159075/how-to-find-out-the-currently-logged-in-user-in-spring-boot
-    	  
-    	  
-    	  	el OBJECT PRINCIPAL -> toma el usuario de MyusersDetailService es objeto User, ya que no te coge la autoridad si no lo es
-    	  	-> si usamos Credentials todos los datos los recibimos en OBJECT y no podemos utilizar ni los datos ni las funicones de SecurityContextHolder
-    	  
-    	 */
-    	
-    	//La diferenciacion de usuarios por rol, se hace en SecurityConfiguration.
-    	
-
-        return "index";
-    }
-	
-	
 	@GetMapping("/register") 
 	public String registrar(Model model, String error, String logout) {
         
-		model.addAttribute("cliente",new PuntoReparto_Pojo());
+		model.addAttribute("cliente",new Cliente_Pojo());
 		
 		System.out.println("Prueba para ver si pasa");
 		return "v_aaEntrada_login_register/registroGeneral";
@@ -105,7 +57,7 @@ public class ControladorInicio {
 	@GetMapping("/register2") 
 	public String registrarCliente(Model model, String error, String logout) {
         
-		model.addAttribute("cliente",new PuntoReparto_Pojo());
+		model.addAttribute("cliente",new Cliente_Pojo());
 		
 		List<Poblacion_Pojo> poblaciones=this.poblacionRepository.findAll();
 		
@@ -143,63 +95,11 @@ public class ControladorInicio {
 	
 	
 	@PostMapping("/register2/procesar")
-	public String register2(@ModelAttribute("cliente") PuntoReparto_Pojo cliente,
+	public String register2(@ModelAttribute("cliente") Cliente_Pojo cliente,
 	@RequestParam("username") String username, @RequestParam("password") String password,
 	@RequestParam("poblacion_formulario") String poblacion_elegida ) {
 	        
 	
-		/*----------------FALTA-----------------------
-		 Direccion:
-			 + comprobar la direccion es correcta: que de 1 resultado
-			  en el api de google
-			  	-sino redirigir a la opcion de error(hacer que lo valide)
-			 
-			 +conseguir coordenadas de la direccion y cargarlas
-		
-		*/
-		
-		
-		/*
-		 Los formularios trabajan en front-end hay no se utiliza java, por lo que
-		 el formulario solo nos podra pasar texto plano, y sera nuestra tarea
-		 el buscar los datos de ese objeto en database, utilizando el id/nombre que 
-		 nos pase el formulario web.
-		 */
-		
-
-		try {
-			Optional<Poblacion_Pojo> miPoblacion=this.poblacionRepository.findByNombreLocalizacion(poblacion_elegida);
-			
-			ConvertirDireccionACoordenadas conversor=new ConvertirDireccionACoordenadas();
-			
-			Coordenadas coordenadasCliente= conversor.realizarConsultaDeCoordenada(cliente.getDireccion(),miPoblacion.get());
-		
-			if(coordenadasCliente==null) {
-				coordenadasCliente= new Coordenadas(0,0);				
-			}
-			
-			/*	 
-			 Guardar nueva entrada
-				 +unir el credencial con los datos del cliente/punto de reparto
-				 +Guardar de forma separada		 
-			  
-			 */ 
-			
-			
-			UserAccount_Pojo userAccount=this.formulary_credentials_processing(username,password,Roles.ROLE_CLIENTE.name());
-			
-			this.formulary_client_processing(miPoblacion.get(),userAccount,cliente,coordenadasCliente);
-	        
-		} 
-		catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}	
-		finally {
-			System.out.println("Cliente creado----------");
-		}
-		
 		
         return "redirect:/";
     }
@@ -221,11 +121,11 @@ public class ControladorInicio {
         return userAccount;
 	}
 
-	
+	/*
 	private void formulary_client_processing(Poblacion_Pojo poblacion_elegida, UserAccount_Pojo userAccount,
-			PuntoReparto_Pojo cliente, Coordenadas coordenadasCliente) {
+			Cliente_Pojo cliente, Coordenadas coordenadasCliente) {
 
-		PuntoReparto_Pojo a_registrar=cliente;
+		Cliente_Pojo a_registrar=cliente;
 		
 		a_registrar.setPoblacion(poblacion_elegida);
 		a_registrar.setUser(userAccount);
@@ -236,7 +136,7 @@ public class ControladorInicio {
 		this.puntoRepartoRepository.save(a_registrar);
 	}
 
-
+*/
 
 	
 	

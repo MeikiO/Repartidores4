@@ -1,10 +1,7 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.pedidos;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,22 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.annotation.Transient;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.productos.Producto_Pojo;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.punto_reparto.PuntoReparto_Pojo;
-import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.quejas.Queja_Pojo;
+import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.cliente.Cliente_Pojo;
 import edu.mondragon.mikel_murua.proyecto_repartidor3.logistica.repartidores.Repartidor_Pojo;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name="pedidos")
@@ -101,7 +86,7 @@ public class Pedido_Pojo {
 	
 	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "puntoReparto_id") 
-    private PuntoReparto_Pojo puntoReparto;
+    private Cliente_Pojo puntoReparto;
 	
     
     /* Al guardar los pedidos con todos los linea de pedido da el 
@@ -124,11 +109,6 @@ public class Pedido_Pojo {
 	
    
     private double precio_total;
-    
-    @OneToOne
-    @JoinColumn(name = "queja_id") 
-    private Queja_Pojo queja;
-    
 
     @ManyToOne
     @JoinColumn(name="listaPedidosRepartidor")
@@ -141,8 +121,8 @@ public class Pedido_Pojo {
 		this.precio_total=0;
 	}
 
-	public Pedido_Pojo(Long id, String estadoPedido, String observaciones, Date fechaPedido, PuntoReparto_Pojo puntoReparto,
-			Set<LineaPedido_Pojo> listaLineas, double precio_total, Queja_Pojo queja, Repartidor_Pojo repartidorEncargado) {
+	public Pedido_Pojo(Long id, String estadoPedido, String observaciones, Date fechaPedido, Cliente_Pojo puntoReparto,
+			Set<LineaPedido_Pojo> listaLineas, double precio_total, Repartidor_Pojo repartidorEncargado) {
 		super();
 		this.id = id;
 		this.estadoPedido = estadoPedido;
@@ -151,7 +131,6 @@ public class Pedido_Pojo {
 		this.puntoReparto = puntoReparto;
 		this.listaLineas = listaLineas;
 		this.precio_total = precio_total;
-		this.queja = queja;
 		this.repartidorEncargado = repartidorEncargado;
 	}
 
@@ -187,11 +166,11 @@ public class Pedido_Pojo {
 		this.fechaPedido = fechaPedido;
 	}
 
-	public PuntoReparto_Pojo getPuntoReparto() {
+	public Cliente_Pojo getPuntoReparto() {
 		return puntoReparto;
 	}
 
-	public void setPuntoReparto(PuntoReparto_Pojo puntoReparto) {
+	public void setPuntoReparto(Cliente_Pojo puntoReparto) {
 		this.puntoReparto = puntoReparto;
 	}
 
@@ -211,13 +190,6 @@ public class Pedido_Pojo {
 		this.precio_total = precio_total;
 	}
 
-	public Queja_Pojo getQueja() {
-		return queja;
-	}
-
-	public void setQueja(Queja_Pojo queja) {
-		this.queja = queja;
-	}
 
 	public Repartidor_Pojo getRepartidorEncargado() {
 		return repartidorEncargado;
@@ -227,79 +199,6 @@ public class Pedido_Pojo {
 		this.repartidorEncargado = repartidorEncargado;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((estadoPedido == null) ? 0 : estadoPedido.hashCode());
-		result = prime * result + ((fechaPedido == null) ? 0 : fechaPedido.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((listaLineas == null) ? 0 : listaLineas.hashCode());
-		result = prime * result + ((observaciones == null) ? 0 : observaciones.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(precio_total);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((puntoReparto == null) ? 0 : puntoReparto.hashCode());
-		result = prime * result + ((queja == null) ? 0 : queja.hashCode());
-		result = prime * result + ((repartidorEncargado == null) ? 0 : repartidorEncargado.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Pedido_Pojo other = (Pedido_Pojo) obj;
-		if (estadoPedido == null) {
-			if (other.estadoPedido != null)
-				return false;
-		} else if (!estadoPedido.equals(other.estadoPedido))
-			return false;
-		if (fechaPedido == null) {
-			if (other.fechaPedido != null)
-				return false;
-		} else if (!fechaPedido.equals(other.fechaPedido))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (listaLineas == null) {
-			if (other.listaLineas != null)
-				return false;
-		} else if (!listaLineas.equals(other.listaLineas))
-			return false;
-		if (observaciones == null) {
-			if (other.observaciones != null)
-				return false;
-		} else if (!observaciones.equals(other.observaciones))
-			return false;
-		if (Double.doubleToLongBits(precio_total) != Double.doubleToLongBits(other.precio_total))
-			return false;
-		if (puntoReparto == null) {
-			if (other.puntoReparto != null)
-				return false;
-		} else if (!puntoReparto.equals(other.puntoReparto))
-			return false;
-		if (queja == null) {
-			if (other.queja != null)
-				return false;
-		} else if (!queja.equals(other.queja))
-			return false;
-		if (repartidorEncargado == null) {
-			if (other.repartidorEncargado != null)
-				return false;
-		} else if (!repartidorEncargado.equals(other.repartidorEncargado))
-			return false;
-		return true;
-	}
-
-	
 	
 
 }

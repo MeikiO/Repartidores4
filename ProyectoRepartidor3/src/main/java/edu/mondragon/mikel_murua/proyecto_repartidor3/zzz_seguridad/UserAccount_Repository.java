@@ -1,7 +1,5 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

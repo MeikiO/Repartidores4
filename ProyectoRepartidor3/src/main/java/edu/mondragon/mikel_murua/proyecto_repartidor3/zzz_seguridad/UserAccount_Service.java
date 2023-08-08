@@ -1,21 +1,12 @@
 package edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_seguridad;
 
 
-import java.util.Arrays;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.mondragon.mikel_murua.proyecto_repartidor3.zzz_recursos_codigo.DaoServices;
-import jdk.jshell.spi.ExecutionControl.UserException;
 
 
 @Service
