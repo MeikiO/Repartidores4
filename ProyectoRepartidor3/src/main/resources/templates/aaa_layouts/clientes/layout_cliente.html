@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="es">
+
+<head>
+	<!-- Este titulo se mezcla con el puesto en el otro -->
+   <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Cliente</title>
+   
+   <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   
+   <!-- Esta linea es para que el contenido se escale correctamente en cada dispositivo -->
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+ 
+ 	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/layout_styles.css}">
+ 	<link rel="stylesheet" type="text/css" href="#" th:href="@{/css/content_styles.css}">
+
+ 	<!-- importamos bootstrap 5 Css y javascript (se ha quitado normalize.css porque ya esta incluido en bootstrap)-->
+ 	<link rel="stylesheet" type="text/css" href="#" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css}">
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js}" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+	
+    <header class="navbar navbar-expand-lg navbar-light bg-light border-3 border-bottom border-primary ">
+            <div class="container-fluid">
+                
+              <a href="/cliente/entrada" class="navbar-brand">REPARTIDORES 3</a>
+                <button type="button"
+                    class="navbar-toggler"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#MenuNavegacion">
+                        <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        
+            <div id="MenuNavegacion" class="collapse navbar-collapse">
+            	<form action="#" th:action="@{/cliente/procesarAcciones}" method="post">
+   				<ul class="navbar-nav ms-1">
+                <li class="nav-item">
+                	<a class="nav-link text-nowrap" href="/cliente/hacer_pedido">Hacer Pedido</a>
+                	<!--
+                		<button type="submit" name="action" value="hacer_pedido" class="nav-link active">Hacer Pedido</button>
+                	-->
+                </li>
+                <li class="nav-item">
+                	<a class="nav-link text-nowrap" href="/cliente/ver_todas_las_quejas">Ver Quejas</a>
+                	<!--  
+                		<button type="submit" name="action" value="ver_todas_las_quejas" class="nav-link active">Ver Quejas</button>
+                	-->
+                </li>
+                
+        <!-- 
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                      Opciones de soporte
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Manuales</a></li>
+                      <li><a class="dropdown-item" href="#">Base de conocimientos</a></li>
+                      <li><a class="dropdown-item" href="#">Contacta con nosotros</a></li>
+                    </ul>
+                </li>
+        -->        
+              </ul>
+        	  </form>
+        
+              <ul class="navbar-nav ms-3">
+                <li class="nav-item red">
+                    <a class="nav-link text-nowrap" href="/logout">Cerrar Sesion</a>
+                </li>
+              </ul>
+            </div>
+          </header>
+
+
+        <!-- Sidebar -->
+        <nav id="sidebar" class="navigation_sidebar">
+
+			<form action="#" th:action="@{/cliente/procesarAcciones}" method="post">
+	          		<ul class="navbar-nav ms-1">
+                <li class="nav-item">
+                	<a class="nav-link text-nowrap" href="/cliente/hacer_pedido">Hacer Pedido</a>
+                	<!--
+                		<button type="submit" name="action" value="hacer_pedido" class="nav-link active">Hacer Pedido</button>
+                	-->
+                </li>
+                <li class="nav-item">
+                	<a class="nav-link text-nowrap" href="/cliente/ver_todas_las_quejas">Ver Quejas</a>
+                	<!--  
+                		<button type="submit" name="action" value="ver_todas_las_quejas" class="nav-link active">Ver Quejas</button>
+                	-->
+                </li>
+                
+        <!-- 
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                      Opciones de soporte
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Manuales</a></li>
+                      <li><a class="dropdown-item" href="#">Base de conocimientos</a></li>
+                      <li><a class="dropdown-item" href="#">Contacta con nosotros</a></li>
+                    </ul>
+                </li>
+        -->        
+              </ul>
+        
+              <ul class="navbar-nav ms-3">
+                <li class="nav-item red">
+                    <a class="nav-link text-nowrap" href="/logout">Cerrar Sesion</a>
+                </li>
+              </ul>
+	        </form>
+        </nav>
+
+        <!-- Para que la barra se quede pegada a al parte superior cuando vas hacia abajo
+		(para ventanas pequeñas) -->
+			<div class="container-fluid overflow-hidden">
+		        <div class="d-flex sticky-top">
+
+			        <section layout:fragment="custom-content">
+			          <p>Por si no funciona el layout custom footer</p>
+			        </section>
+				      
+				</div>
+			</div>
+          
+</body>
+</html>

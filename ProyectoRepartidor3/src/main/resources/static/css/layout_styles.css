@@ -1,0 +1,175 @@
+
+
+:root{
+
+    --number_of_columns:1;
+    --border_radious_value:0.5rem;
+    --padding_value:0.5rem;
+    --margin_value:0.5rem;
+
+
+    --sidebar_size:250px;
+
+
+    --LIGHT:#FBFBFB;
+    --DARK:#332D2D;
+    --PRIMARY:#0069D9;
+    --SECONDARY:#9FA6B2;
+    --INFO:#54B4D3;
+    --SUCCESS:#14A44D;
+    --WARNING:#E4A11B;
+    --DANGER:#DC4C64;
+
+    --sidebar_color:var(--PRIMARY);
+    --sidebar_light:var(--INFO);
+
+    --text_color_dark:var(--DARK);
+    --text_color_light:var(--LIGHT);
+
+    --header_background:var(--PRIMARY);
+    --body_background:var(--#FBFBFB);
+
+    --logout_color:var(--DANGER);
+
+}
+
+*, *::before,*::after{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
+img{
+
+    /*para ponerlos grandes y que no den problemas pon los siguientes comandos*/
+
+    max-width: 100%; /*hasi nunca ocupara mas que su tama�o*/
+
+    display: block; /* quita el espacio de abajo de la imagen.*/
+
+}
+
+h1,h2 { margin-top:0;}
+
+
+
+body{
+    display: grid;
+    grid-template: 
+    "header" 
+    "document__content";
+
+    overflow: auto;
+}
+
+
+header{
+    grid-area: header;
+}
+
+.navigation_sidebar{
+    grid-area: navigation__part;
+}
+
+.document__content{
+    grid-area: document__content;
+}
+
+
+/*
+    ----SIDEBAR THINGS----------------------------
+*/
+
+
+#sidebar.active {
+    margin-left: calc(var(--sidebar_size) * -1);
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+#sidebar {
+    min-width: var(--sidebar_size);
+    max-width: var(--sidebar_size);
+    min-height: 100vh;
+
+    background: var(--sidebar_color);
+    color: var(--text_color_dark);
+    transition: all 0.3s;
+    
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: var(--sidebar_color);
+
+    border-bottom: 1px solid var(--sidebar_light);
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul li a {
+    display: block;
+    padding: 10px 3rem ;
+    font-size: 1.1em;
+    color: var(--text_color_dark);
+}
+
+
+/* le da estilo a la lista interior */
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 3rem!important;
+    background:var(--sidebar_light)
+}
+
+
+
+
+
+@media (min-width: 1000px) {
+    :root{
+        --sidebar_size:400px;
+    }
+
+    body{
+        display: grid;
+        grid-template: 
+        "header header" 
+        "navigation__part document__content";
+        grid-template-columns: 1fr 3fr;
+    }
+    
+    
+    #MenuNavegacion >*{
+        display: none;
+    }
+
+    .document__content{
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 1000px) {
+    #sidebar {
+        display: none;
+    }
+}
+
+
+/*---------------------------------*/
+
+
+

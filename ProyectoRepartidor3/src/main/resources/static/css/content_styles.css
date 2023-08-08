@@ -1,0 +1,88 @@
+:root{
+    --big_padding:2rem;
+    --padding_size:1rem;
+
+
+    --LIGHT:#FBFBFB;
+    --DARK:#332D2D;
+    --PRIMARY:#3B71CA;
+    --SECONDARY:#9FA6B2;
+    --INFO:#54B4D3;
+    --SUCCESS:#14A44D;
+    --WARNING:#E4A11B;
+    --DANGER:#DC4C64;
+
+    
+}
+
+.document__content{
+    grid-area:document__content ;
+
+    background-color: var(--LIGHT);
+
+    padding: var(--big_padding);
+}
+
+
+.document__content > *{
+    padding: 0 1rem;
+}
+
+#realizar_pedido{
+    width: 100%;
+}
+
+.contenido__pedidos{
+    display: flex;
+    flex-flow: column;
+        justify-content:center;
+    align-items:center;
+
+}
+
+.btn{
+    padding: var(--padding_size) 0;
+    background-color: var(--PRIMARY);
+}
+
+.tabla__pedidos{
+    overflow-y: auto;
+}
+
+.tabla__pedidos *{
+    padding: var(--padding_size);
+    text-align: center;
+}
+
+
+.tabla__info tr{
+    background-color:var(--INFO);
+    border-radius: 1rem;
+    padding: var(--padding_size) 0;
+}
+
+.tabla__info tr > *{
+    padding: var(--padding_size);
+}
+
+.red{
+   background-color:var(--DANGER);
+}
+
+.green{
+	background-color:var(--SUCCESS);
+}
+
+
+@media (min-width:760px){
+    #realizar_pedido{
+        display: none;
+    }
+}
+
+@media (max-width: 760px){
+    .acciones{
+        display: none ;
+    }
+}
+
