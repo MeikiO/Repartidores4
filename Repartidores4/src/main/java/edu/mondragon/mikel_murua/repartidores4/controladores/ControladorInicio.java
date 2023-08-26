@@ -15,10 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import edu.mondragon.mikel_murua.repartidores4.logistica.cliente.Cliente_Pojo;
-import edu.mondragon.mikel_murua.repartidores4.logistica.cliente.Cliente_Repository;
-import edu.mondragon.mikel_murua.repartidores4.logistica.poblacion.Poblacion_Pojo;
-import edu.mondragon.mikel_murua.repartidores4.logistica.poblacion.Poblacion_Repository;
 import edu.mondragon.mikel_murua.repartidores4.zzz_seguridad.Roles;
 import edu.mondragon.mikel_murua.repartidores4.zzz_seguridad.UserAccount_Pojo;
 import edu.mondragon.mikel_murua.repartidores4.zzz_seguridad.UserAccount_Repository;
@@ -27,7 +23,10 @@ import edu.mondragon.mikel_murua.repartidores4.zzz_seguridad.UserAccount_Reposit
 @Controller
 public class ControladorInicio {
 
+	/* 
+	 
 	 private final Cliente_Repository puntoRepartoRepository;
+
 	 private final UserAccount_Repository userAccountRepository;
 	 private final Poblacion_Repository poblacionRepository;
 	 private final PasswordEncoder passwordEncoder;

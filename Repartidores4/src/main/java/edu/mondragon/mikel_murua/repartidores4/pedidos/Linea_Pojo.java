@@ -4,21 +4,23 @@ public class Linea_Pojo {
 
 	private Producto_Pojo producto;
 	private int cantidad;
+	private double total;
 	
 	private Linea_Pojo() { //como es private no te deja llamarlo
+		this.total=0.0;
 	}
 	
 	public Linea_Pojo(int cantidad,Producto_Pojo producto) {
 		this.setCantidad(cantidad);//para hacer la comprobacion se hace con setters
 		this.setProducto(producto);
+		this.total=0.0;
 	}
 
 	public Producto_Pojo getProducto() {
 		return producto;
 	}
 
-	public void setProducto(Producto_Pojo producto) {
-				
+	public void setProducto(Producto_Pojo producto) {		
 		if(producto!=null) {
 			this.producto = producto;			
 		} 
@@ -38,5 +40,9 @@ public class Linea_Pojo {
 		else {
 			this.cantidad = cantidad;			
 		}
+	}
+
+	public double getTotal() {
+		return this.total;
 	}	
 }

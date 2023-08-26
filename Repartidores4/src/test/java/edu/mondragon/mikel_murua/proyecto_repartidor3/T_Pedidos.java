@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import edu.mondragon.mikel_murua.repartidores4.pedidos.Linea_Pojo;
 import edu.mondragon.mikel_murua.repartidores4.pedidos.Pedido_Pojo;
+import edu.mondragon.mikel_murua.repartidores4.pedidos.Pedidos_Service;
+import edu.mondragon.mikel_murua.repartidores4.pedidos.Producto_Pojo;
 
 
 
@@ -26,7 +28,7 @@ class T_Pedidos {
 	@Test
 	void pedidoTieneComoMinimo1Linea() {
 		Pedido_Pojo nuevoPedido=new Pedido_Pojo();
-		Linea_Pojo linea=new Linea_Pojo(); // solo hace falta la linea, los datos no hace falta para el test
+		Linea_Pojo linea=new Linea_Pojo(1,new Producto_Pojo()); // solo hace falta la linea, los datos no hace falta para el test
 		nuevoPedido.addLinea(linea);
 		
 		int numeroLineas=nuevoPedido.getNumeroLineas();
@@ -42,7 +44,8 @@ class T_Pedidos {
 	@Test
 	void sePuedeAnadirUnaLineaMasAlPedido() {
 		Pedido_Pojo nuevoPedido=new Pedido_Pojo();
-		Linea_Pojo linea=new Linea_Pojo(); 
+		Linea_Pojo linea=new Linea_Pojo(1,new Producto_Pojo()); // solo hace falta la linea, los datos no hace falta para el test
+		
 		
 		int numeroLineas=nuevoPedido.getNumeroLineas();
 		
@@ -52,8 +55,8 @@ class T_Pedidos {
 	}
 	
 	
+	
 	/*
-	 
 	@Test
 	void todasLasLineasTienenQueTenerCantidadYProducto() {
 		Producto_Pojo producto=new Producto_Pojo();
@@ -69,13 +72,58 @@ class T_Pedidos {
 	  
 	-> ASIGNACION A TRAVES DEL SETTER (CONTROLANDO LAS CONDICIONES).
 	  
-	  -> FALTA HACERLO
+	  -> FALTA HACERLO 
+	  
+	  -> Por lo que se usara el 2ndo constructor de linea producto 
 	  
 	 */
 	
 
+	@Test
+	void seCalculaElPrecioDeLinea() {
+		Producto_Pojo producto=new Producto_Pojo(50,0);
+		Linea_Pojo linea=new Linea_Pojo(3,producto);
+
+		Pedidos_Service service=new Pedidos_Service();
+		
+		assertTrue(150 == service.calcularTotalLinea(linea));
+	}
 	
+	@Test
+	void seHaceCalculoCompletoDePedido() {
+		Producto_Pojo producto=new Producto_Pojo(50,0);
+		Producto_Pojo producto2=new Producto_Pojo(500,0);
+		Linea_Pojo linea=new Linea_Pojo(2,producto);
+		Linea_Pojo linea2=new Linea_Pojo(2,producto2);
+		
+		Pedido_Pojo pedido=new Pedido_Pojo();
+		pedido.addLinea(linea);
+		pedido.addLinea(linea2);
+		
+		Pedidos_Service service=new Pedidos_Service();
+		
+		assertTrue(1100 == service.calcularTotalPedido(pedido));
+	}
 	
+	@Test
+	void seHaceCalculoDePedidoAplicandoDescuentos() {
+		Producto_Pojo producto=new Producto_Pojo(50,0);
+		Producto_Pojo producto2=new Producto_Pojo(500,10);
+		Linea_Pojo linea=new Linea_Pojo(2,producto);
+		Linea_Pojo linea2=new Linea_Pojo(2,producto2);
+		
+		Pedido_Pojo pedido=new Pedido_Pojo();
+		pedido.addLinea(linea);
+		pedido.addLinea(linea2);
+		
+		Pedidos_Service service=new Pedidos_Service();
+		
+		assertTrue(1000 == service.calcularTotalPedido(pedido));
+	}
 	
+	/*
+	  -- Preguntar como testear el ingreso de todos los demas datos
+	  hasi como nombre del producto.... y demas datos ornamentales 
+	 */
 	
 }

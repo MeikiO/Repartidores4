@@ -6,12 +6,11 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import edu.mondragon.mikel_murua.repartidores4.zzz_recursos_codigo.DaoServices;
 
 
 @Service
 @Transactional
-public class UserAccount_Service implements  DaoServices<UserAccount_Pojo>{
+public class UserAccount_Service {
 
 	
 	public UserAccount_Repository credenciales;
@@ -22,12 +21,12 @@ public class UserAccount_Service implements  DaoServices<UserAccount_Pojo>{
 	}
 
 	
-	@Override
+	
 	public Long numero_de_elementos_en_database() {
 		return this.credenciales.count();
 	}
 
-	@Override
+
 	public UserAccount_Pojo buscarPorID(Long id) {
 		//Objeto Optional -> sirve para definir y automatizar el null
     	// y sirve para comprobar si esta o no esta.
@@ -40,14 +39,14 @@ public class UserAccount_Service implements  DaoServices<UserAccount_Pojo>{
 	}
 
 	
-	@Override
+
 	public void registrarEnDatabase(UserAccount_Pojo objeto) {
 			if (!objeto.getUsername().isBlank() && !objeto.getContrasena().isBlank()) {
 	            this.credenciales.save(objeto);
 	        }
 	}
 
-	@Override
+
 	public void actualizar(UserAccount_Pojo objeto) {
 	 	   if (objeto.getIdInterno() != null & !objeto.getUsername().isBlank() && !objeto.getContrasena().isBlank()) {
 	    		  
@@ -66,7 +65,6 @@ public class UserAccount_Service implements  DaoServices<UserAccount_Pojo>{
     	   }
 	}
 
-	@Override
 	public void borrarElemento(Long id) {
 	}
 
