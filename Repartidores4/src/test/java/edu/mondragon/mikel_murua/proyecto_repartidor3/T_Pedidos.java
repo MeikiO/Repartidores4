@@ -6,24 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import edu.mondragon.mikel_murua.repartidores4.pedidos.Linea_Pojo;
 import edu.mondragon.mikel_murua.repartidores4.pedidos.Pedido_Pojo;
-import edu.mondragon.mikel_murua.repartidores4.pedidos.Pedidos_Service;
 import edu.mondragon.mikel_murua.repartidores4.pedidos.Producto_Pojo;
 
 
-
 class T_Pedidos {
-
-	@Test
-	void seObtienePrecioTotal() {
-		Pedido_Pojo nuevoPedido=new Pedido_Pojo();
-		nuevoPedido.setPrecio_total(25);
-		assertEquals(nuevoPedido.getPrecio_total(),25);
-		
-		//	 	1. Minimo absoluto para calcular Correctamente el precio total
- 		//			- Tener precioTotal
-		
-	}
-
 	
 	@Test
 	void pedidoTieneComoMinimo1Linea() {
@@ -81,18 +67,16 @@ class T_Pedidos {
 
 	@Test
 	void seCalculaElPrecioDeLinea() {
-		Producto_Pojo producto=new Producto_Pojo(50,0);
+		Producto_Pojo producto=new Producto_Pojo(50);
 		Linea_Pojo linea=new Linea_Pojo(3,producto);
-
-		Pedidos_Service service=new Pedidos_Service();
 		
-		assertTrue(150 == service.calcularTotalLinea(linea));
+		assertEquals(150 , linea.calcularTotalLinea());
 	}
 	
 	@Test
 	void seHaceCalculoCompletoDePedido() {
-		Producto_Pojo producto=new Producto_Pojo(50,0);
-		Producto_Pojo producto2=new Producto_Pojo(500,0);
+		Producto_Pojo producto=new Producto_Pojo(50);
+		Producto_Pojo producto2=new Producto_Pojo(500);
 		Linea_Pojo linea=new Linea_Pojo(2,producto);
 		Linea_Pojo linea2=new Linea_Pojo(2,producto2);
 		
@@ -100,25 +84,7 @@ class T_Pedidos {
 		pedido.addLinea(linea);
 		pedido.addLinea(linea2);
 		
-		Pedidos_Service service=new Pedidos_Service();
-		
-		assertTrue(1100 == service.calcularTotalPedido(pedido));
-	}
-	
-	@Test
-	void seHaceCalculoDePedidoAplicandoDescuentos() {
-		Producto_Pojo producto=new Producto_Pojo(50,0);
-		Producto_Pojo producto2=new Producto_Pojo(500,10);
-		Linea_Pojo linea=new Linea_Pojo(2,producto);
-		Linea_Pojo linea2=new Linea_Pojo(2,producto2);
-		
-		Pedido_Pojo pedido=new Pedido_Pojo();
-		pedido.addLinea(linea);
-		pedido.addLinea(linea2);
-		
-		Pedidos_Service service=new Pedidos_Service();
-		
-		assertTrue(1000 == service.calcularTotalPedido(pedido));
+		assertEquals(1100, pedido.calcularTotalPedido());
 	}
 	
 	/*
