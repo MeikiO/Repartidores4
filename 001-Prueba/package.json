@@ -1,0 +1,19 @@
+{
+  "name": "proyecto-diseno-app-coches",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "esbuild src/index.jsx --bundle --servedir=public/ --outdir=public/js",
+    "build": "esbuild src/index.jsx --bundle --minimify --outfile=public/js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.19.4"
+  }
+}

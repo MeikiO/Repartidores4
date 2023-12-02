@@ -1,0 +1,54 @@
+
++ haciendo nmp start
+    CARGA EL /PUBLIC/INDEX.HTML
+
++ En el div el id toma como componente el archivo index.jsx
+que carga el archivo APP.jsx
+
+
++ El estado/ variables son de cada FUNCION,, no se puede usar en otros. (PONLO DENTRO)
+
+    - si usas estados/variables tienes que importarlos desde react.
+
+        import { useState } from 'react'
+
+
+
+NOTAS REACT
+
+    + Lo que se renderiza es lo que hay dentro del 
+    RETURN ()
+
+        /* ---------FUNCIONES DE ESTADO---------- 
+        const [ variable, setVariable]= useState(valor inicial numero/texto) */
+
+
+    EN el return 
+
+        +Tiene que devolver 1 bloque entero, un contenedor div que tenga todo dentro. 
+        <NOMBRE FUNCION/> -> ESTOS SON PROPS
+        
+        + Todo el codigo puesto fuera de condiones esta de forma permanente, lo que haya dentro de los ifs solo aparece cuando se cumpla la condicion.
+
+        + Hay ifs, SOBRE VARIABLES DE ESTADO (definidos fuera del return() )
+            
+            FORMATO
+            
+            - 1. CON IF Y ELSE
+                {CONDICION ?
+
+                    < verdadero>
+
+                    : 
+
+                    < falso>
+                }
+
+            - 2. Sin ELSE
+                {CONDICION &&
+                    </verdadero>
+                } 
+
+
+
+
